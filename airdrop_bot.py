@@ -7,10 +7,12 @@ from telegram.ext import (
     MessageHandler, filters, CallbackQueryHandler
 )
 
-TOKEN = "7645340647:AAEVYTWHYCZhhQfd1QVlouL>
+# 👉 নিজের বটের টোকেন ও চ্যানেল ID-গুলো দিয়ে দাও
+TOKEN = "YOUR_BOT_TOKEN_HERE"
 CHANNELS = [
-    "-1002271283410", 
-    "-1002476961589",  
+    "-1001234567890",  # Channel 1 ID
+    "-1009876543210",  # Channel 2 ID
+    "-1001122334455"   # Channel 3 ID
 ]
 DATA_FILE = "database.json"
 PHOTO_PATH = "airdrop_image.jpg"
@@ -59,7 +61,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     question, answer = generate_puzzle()
     context.user_data["answer"] = answer
     await update.message.reply_text(
-        f"🤖  Human Verification Question: {question}\n Just write your answer:"
+        f"🤖 হিউম্যান ভেরিফিকেশন প্রশ্ন: {question}\nউত্তর দিন:"
     )
 
 async def puzzle_answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -84,18 +86,16 @@ async def puzzle_answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("⚠️ দয়া করে শুধুমাত্র সংখ্যায় উত্তর দিন।")
 
 async def send_airdrop_intro(update: Update, context: ContextTypes.DEFAULT_TYPE):
-
     caption = (
-    "🔥 *Airdrop Fire* শুরু হয়েছে!\n"
-    "💰 পুরস্কার পুল: ১০,০০০ USDT\n"
-    "👉 অংশগ্রহণের জন্য এই ফোল্ডার চেক করুন:\n"
-    "https://t.me/addlist/6zWj45KzQFUwMmVl\n\n"
-    "✅ ফোল্ডারের সব চ্যানেলে যুক্ত হয়ে বাটন চাপুন।"
-)
-
-keyboard = InlineKeyboardMarkup([
-    [InlineKeyboardButton("✅ আমি জয়েন করেছি", callback_data="joined")]
-])
+        "🔥 *Airdrop Fire* শুরু হয়েছে!\n"
+        "💰 পুরস্কার পুল: ১০,০০০ USDT\n"
+        "👉 অংশগ্রহণের জন্য এই ফোল্ডার চেক করুন:\n"
+        "https://t.me/addlist/6zWj45KzQFUwMmVl\n\n"
+        "✅ ফোল্ডারের সব চ্যানেলে যুক্ত হয়ে বাটন চাপুন।"
+    )
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("✅ আমি জয়েন করেছি", callback_data="joined")]
+    ])
 
     try:
         with open(PHOTO_PATH, "rb") as photo:
